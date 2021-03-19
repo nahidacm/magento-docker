@@ -1,0 +1,58 @@
+version: '3.3'
+services:
+  php-apache:
+    image: 'webdevops/php-apache:7.4'
+    volumes:
+      - '/var/www/magento24.loc:/app'
+    networks:
+      testing_net:
+        ipv4_address: 172.1.0.2
+    environment:
+      - php.session.gc_maxlifetime=31536000
+      - php.session.cookie_lifetime=31536000
+      - php.memory_limit=2048M
+      - PHP_DISPLAY_ERRORS=1
+      - php.log_errors=On
+      - php.error_reporting=E_ALL
+      - php.display_startup_errors=1
+    restart: unless-stopped
+    ports:
+      - '8888:80'
+  phpmyadmin:
+    image: 'phpmyadmin/phpmyadmin:latest'
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=j
+    restart: unless-stopped
+    ports:
+      - '8000:80'
+    networks:
+      testing_net:
+        ipv4_address: 172.1.0.3
+  elasticsearch:
+    image: 'elasticsearch:7.6.2'
+    networks:
+      testing_net:
+        ipv4_address: 172.1.0.5
+    environment:
+      - discovery.type=single-node
+    restart: unless-stopped
+  mysql:
+    image: mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=j
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+      - ./dbdata:/var/lib/mysql
+    networks:
+      testing_net:
+        ipv4_address: 172.1.0.4
+networks:
+  testing_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.1.0.0/16
