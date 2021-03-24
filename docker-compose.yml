@@ -3,7 +3,7 @@ services:
   php-apache:
     image: 'webdevops/php-apache:7.4'
     volumes:
-      - '/var/www/magento24.loc:/app'
+      - '/home/nahid/www/magento24:/app'
     networks:
       testing_net:
         ipv4_address: 172.1.0.2
