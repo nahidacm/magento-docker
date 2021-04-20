@@ -3,15 +3,18 @@ Docker compose for Magento
 
 # Customize
 
-In line #6, change the volume path to adjust your local app directory
+Keep the `docker-compose.yml` file into project root directory.
 
-In magento installation, see the params carefully and adjust accordingly.
+1. Run: `docker compose up` from project root.
+2. create DB from PhpMyAdmin: http://localhost:8000
+3. In magento installation, see the params carefully and adjust accordingly.
 
 # Install Magento
 
-`bin/magento setup:install \
+```bash
+bin/magento setup:install \
 --base-url=http://magento24.loc/ \
---db-host=172.1.0.4 \
+--db-host=mysql \
 --db-name=magento \
 --db-user=root \
 --db-password=j \
@@ -25,4 +28,4 @@ In magento installation, see the params carefully and adjust accordingly.
 --timezone=America/Chicago \
 --use-rewrites=1
 --elasticsearch-host=elasticsearch
-`
+```
