@@ -13,7 +13,7 @@ Keep the `docker-compose.yml` file into project root directory.
 
 ```bash
 bin/magento setup:install \
---base-url=http://magento24.loc/ \
+--base-url=http://localhost:8888/ \
 --db-host=mysql \
 --db-name=magento \
 --db-user=root \
