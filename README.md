@@ -26,6 +26,6 @@ bin/magento setup:install \
 --language=en_US \
 --currency=USD \
 --timezone=America/Chicago \
---use-rewrites=1
+--use-rewrites=1 \
 --elasticsearch-host=elasticsearch
 ```
